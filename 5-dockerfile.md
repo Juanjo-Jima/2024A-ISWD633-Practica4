@@ -78,22 +78,29 @@ Docker usa un mecanismo de caché cuando crea imágenes para acelerar el proceso
 ### ¿Con que puerto host se está realizando el mapeo?
 # COMPLETAR CON LA RESPUESTA
 
-**¿Qué es una imagen huérfana?**
-# COMPLETAR CON LA RESPUESTA
+### **¿Qué es una imagen huérfana?**
+
+Se refiere a una imagen que ya no está asociada con ningún contenedor en ejecución ni con ningún otro objeto de Docker. Esto puede ocurrir cuando se eliminan contenedores que fueron creados a partir de una imagen específica, pero la imagen en sí misma no se elimina.
+
+Cuando eliminas un contenedor con el comando docker rm, por defecto, Docker solo elimina el contenedor, no la imagen desde la cual se creó. Esto significa que si se elimina todos los contenedores que se crearon a partir de una imagen específica, esa imagen queda "huérfana".
+
+Las imágenes huérfanas pueden ocupar espacio de almacenamiento en tu sistema sin ser utilizadas por ningún contenedor. Para identificar y eliminar estas imágenes, puedes usar el comando docker image prune, que eliminará todas las imágenes huérfanas junto con cualquier otra imagen no utilizada.
+
+La eliminación de imágenes huérfanas es una práctica común para liberar espacio de almacenamiento en tu sistema y mantener un entorno Docker limpio y eficiente.
 
 ### Identificar imágenes huérfanas
 ```
-
+docker images -f "dangling=true"
 ```
 
 ### Listar los IDS de las imágenes huérfanas
 ```
-
+docker images -q -f "dangling=true"
 ```
 
 ### Eliminar imágenes huérfanas
 ```
-
+docker image prune -f
 ```
 
 ### Ejecutar un archivo Dockerfile que tiene otro nombre
